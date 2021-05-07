@@ -1,0 +1,29 @@
+{
+  "name": "rescript-project-template",
+  "version": "0.0.1",
+  "scripts": {
+    "res:build": "rescript",
+    "res:build:watch": "rescript build -w",
+    "res:clean": "rescript clean -with-deps",
+    "webpack:dev": "webpack --mode=development",
+    "webpack:dev:watch": "webpack --mode=development --watch",
+    "start": "node src/index.bs.js"
+  },
+  "keywords": [
+    "rescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@rescript/react": "^0.10.3",
+    "bs-express": "^1.0.2",
+    "express": "^4.17.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rescript": "*"
+  },
+  "devDependencies": {
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.7.0"
+  }
+}

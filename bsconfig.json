@@ -1,0 +1,21 @@
+{
+  "name": "rescript-project-template",
+  "reason": { "react-jsx": 3 },
+  "version": "0.0.1",
+  "sources": {
+    "dir" : "src",
+    "subdirs" : true
+  },
+  "package-specs": {
+    "module": "commonjs",
+    "in-source": true
+  },
+  "suffix": ".bs.js",
+  "bs-dependencies": [
+  	"@rescript/react",
+	  "bs-express"
+  ],
+  "warnings": {
+    "error" : "+101"
+  },
+}
