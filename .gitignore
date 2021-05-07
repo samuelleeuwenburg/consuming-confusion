@@ -6,3 +6,4 @@
 *~
 *.bs.js
 static/bundle.*
+dist
