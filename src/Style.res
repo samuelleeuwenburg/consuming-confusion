@@ -6,7 +6,9 @@ module Colors = {
   let colorDark = "#070a0c"
 
   let bgColorLight = colorLight
+  let bgColorDark = colorDark
   let textColorDark = colorDark
+  let textColorLight = colorLight
 }
 
 module Spacing = {

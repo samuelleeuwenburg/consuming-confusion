@@ -17,12 +17,35 @@ module PageNotFound = {
   }
 }
 
+module Styles = {
+  open Emotion
+  open Style
+
+  let pageWrapper = css({
+    "background": Colors.bgColorDark,
+    "color": Colors.textColorLight,
+    "position": "absolute",
+    "top": "0",
+    "left": "0",
+    "height": "100vh",
+    "width": "100%",
+    "overflow": "scroll",
+  })
+}
+
 @react.component
 let make = () => {
   let url = RescriptReactRouter.useUrl()
 
-  switch url.path {
-  | list{} => <FrontPage />
-  | _ => <PageNotFound />
+  let page = switch url.path {
+  | list{} => None
+  | _ => Some(<PageNotFound />)
   }
+
+  <div>
+    <FrontPage />
+    {page
+    ->Belt.Option.map(page => <div className={Styles.pageWrapper}> page </div>)
+    ->Belt.Option.getWithDefault(React.null)}
+  </div>
 }
