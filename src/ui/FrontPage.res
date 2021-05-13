@@ -42,30 +42,32 @@ let make = () => {
   <div className={Styles.container}>
     <div className={Styles.top}>
       <div>
-        <a className={Styles.link} href="#"> {React.string("New Collections")} </a>
-        <a className={Styles.link} href="#"> {React.string("Sale")} </a>
+        <Link className={Styles.link} to="/new-collections">
+          {React.string("New Collections")}
+        </Link>
+        <Link className={Styles.link} to="/sale"> {React.string("Sale")} </Link>
       </div>
       <div> {React.string("The Sustainable Choice")} </div>
       <div>
-        <a className={Styles.link} href="#"> {React.string("Wishlist")} </a>
-        <a className={Styles.link} href="#"> {React.string("Shoppingbag")} </a>
+        <Link className={Styles.link} to="/wishlist"> {React.string("Wishlist")} </Link>
+        <Link className={Styles.link} to="/shoppingbag"> {React.string("Shoppingbag")} </Link>
       </div>
     </div>
     <div className={Styles.middle}>
-      <a className={Styles.link} href="#"> {React.string("Collections")} </a>
-      <a className={Styles.link} href="#"> {React.string("Sustainability")} </a>
-      <a className={Styles.link} href="#"> {React.string("Responsibility")} </a>
-      <a className={Styles.link} href="#"> {React.string("Contact")} </a>
+      <Link className={Styles.link} to="/collections"> {React.string("Collections")} </Link>
+      <Link className={Styles.link} to="/sustainability"> {React.string("Sustainability")} </Link>
+      <Link className={Styles.link} to="/responsibility"> {React.string("Responsibility")} </Link>
+      <Link className={Styles.link} to="/contact"> {React.string("Contact")} </Link>
     </div>
     <div className={Styles.bottom}>
       <div>
-        <a className={Styles.link} href="#"> {React.string("Subscribe")} </a>
-        <a className={Styles.link} href="#"> {React.string("FAQ")} </a>
+        <Link className={Styles.link} to="/subscribe"> {React.string("Subscribe")} </Link>
+        <Link className={Styles.link} to="/faq"> {React.string("FAQ")} </Link>
       </div>
       <div> {React.string("The Sustainable Choice")} </div>
       <div>
-        <a className={Styles.link} href="#"> {React.string("[fb] [ig] [tw]")} </a>
-        <a className={Styles.link} href="#"> {React.string("About")} </a>
+        <span className={Styles.link}> {React.string("[fb] [ig] [tw]")} </span>
+        <Link className={Styles.link} to="/about"> {React.string("About")} </Link>
       </div>
     </div>
   </div>

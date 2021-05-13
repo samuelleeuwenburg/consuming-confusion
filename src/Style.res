@@ -32,14 +32,14 @@ injectGlobal(
   body {
     background: ${Colors.bgColorLight};
     color: ${Colors.textColorDark};
+    font-size: 16px;
+    line-height: 28px;
   }
 
   html, body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, p, input, textarea {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    font-size: 16px;
-    line-height: 28px;
     font-weight: 700;
   }
 

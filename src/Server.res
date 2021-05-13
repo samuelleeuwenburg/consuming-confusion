@@ -1,3 +1,7 @@
+module Path = {
+  @module("path") external resolve: (string, string) => string = "resolve"
+}
+
 open Express
 
 let app = express()
@@ -9,6 +13,14 @@ App.useOnPath(
     let options = Static.defaultOptions()
     Static.make("static", options) |> Static.asMiddleware
   },
+)
+
+App.get(
+  app,
+  ~path="*",
+  Middleware.from((_next, _req, res) => {
+    Response.sendFile(Path.resolve("static", "index.html"), (), res)
+  }),
 )
 
 let onListen = e =>
