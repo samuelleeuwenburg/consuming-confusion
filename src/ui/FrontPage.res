@@ -1,3 +1,39 @@
+module FrontPageLink = {
+  module Styles = {
+    open Style
+    open Style.Spacing
+    open Emotion
+
+    let link = css({
+      "margin-right": px(medium),
+      ":last-child": css({
+        "margin-right": "0",
+      }),
+    })
+
+    let superLink = css({
+      "position": "relative",
+      "z-index": "2",
+      "background": Colors.textColorLight,
+    })
+  }
+
+  @react.component
+  let make = (~to: string, ~children: React.element) => {
+    let url = RescriptReactRouter.useUrl().path->Belt.List.reduce("/", (acc, part) => acc ++ part)
+
+    let (className, link) = if url == to {
+      (`${Styles.superLink} ${Styles.link}`, "/")
+    } else {
+      (Styles.link, to)
+    }
+
+    Js.log()
+
+    <Link className={className} to={link}> children </Link>
+  }
+}
+
 module Styles = {
   open Emotion
   open Style.Spacing
@@ -28,13 +64,6 @@ module Styles = {
     "display": "flex",
     "justify-content": "space-between",
   })
-
-  let link = css({
-    "margin-right": px(medium),
-    ":last-child": css({
-      "margin-right": "0",
-    }),
-  })
 }
 
 @react.component
@@ -42,32 +71,34 @@ let make = () => {
   <div className={Styles.container}>
     <div className={Styles.top}>
       <div>
-        <Link className={Styles.link} to="/new-collections">
-          {React.string("New Collections")}
-        </Link>
-        <Link className={Styles.link} to="/sale"> {React.string("Sale")} </Link>
+        <FrontPageLink to="/new-collections"> {React.string("New Collections")} </FrontPageLink>
+        <FrontPageLink to="/sale"> {React.string("Sale")} </FrontPageLink>
       </div>
       <div> {React.string("The Sustainable Choice")} </div>
       <div>
-        <Link className={Styles.link} to="/wishlist"> {React.string("Wishlist")} </Link>
-        <Link className={Styles.link} to="/shoppingbag"> {React.string("Shoppingbag")} </Link>
+        <FrontPageLink to="/wishlist"> {React.string("Wishlist")} </FrontPageLink>
+        <FrontPageLink to="/shoppingbag"> {React.string("Shoppingbag")} </FrontPageLink>
       </div>
     </div>
     <div className={Styles.middle}>
-      <Link className={Styles.link} to="/collections"> {React.string("Collections")} </Link>
-      <Link className={Styles.link} to="/sustainability"> {React.string("Sustainability")} </Link>
-      <Link className={Styles.link} to="/responsibility"> {React.string("Responsibility")} </Link>
-      <Link className={Styles.link} to="/contact"> {React.string("Contact")} </Link>
+      <div> <FrontPageLink to="/collections"> {React.string("Collections")} </FrontPageLink> </div>
+      <div>
+        <FrontPageLink to="/sustainability"> {React.string("Sustainability")} </FrontPageLink>
+      </div>
+      <div>
+        <FrontPageLink to="/responsibility"> {React.string("Responsibility")} </FrontPageLink>
+      </div>
+      <div> <FrontPageLink to="/contact"> {React.string("Contact")} </FrontPageLink> </div>
     </div>
     <div className={Styles.bottom}>
       <div>
-        <Link className={Styles.link} to="/subscribe"> {React.string("Subscribe")} </Link>
-        <Link className={Styles.link} to="/faq"> {React.string("FAQ")} </Link>
+        <FrontPageLink to="/subscribe"> {React.string("Subscribe")} </FrontPageLink>
+        <FrontPageLink to="/faq"> {React.string("FAQ")} </FrontPageLink>
       </div>
       <div> {React.string("The Sustainable Choice")} </div>
       <div>
-        <span className={Styles.link}> {React.string("[fb] [ig] [tw]")} </span>
-        <Link className={Styles.link} to="/about"> {React.string("About")} </Link>
+        <FrontPageLink to="/socials"> {React.string("[fb] [ig] [tw]")} </FrontPageLink>
+        <FrontPageLink to="/about"> {React.string("About")} </FrontPageLink>
       </div>
     </div>
   </div>
