@@ -5,6 +5,7 @@
     "res:build": "rescript",
     "res:build:watch": "rescript build -w",
     "res:clean": "rescript clean -with-deps",
+    "res:format": "rescript format -all",
     "webpack:prod": "webpack --mode=production",
     "webpack:dev": "webpack --mode=development",
     "webpack:dev:watch": "webpack --mode=development --watch",
