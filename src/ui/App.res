@@ -6,8 +6,8 @@ module PageNotFound = {
       "display": "flex",
       "height": "100vh",
       "width": "100%",
-      "justify-content": "center",
-      "align-items": "center",
+      "justifyContent": "center",
+      "alignItems": "center",
     })
   }
 
@@ -35,9 +35,12 @@ module Styles = {
 
 @react.component
 let make = () => {
+  let socket = React.useRef(SocketIO.Client.io())
+  let username = React.useRef(Chat.generateUsername())
   let url = RescriptReactRouter.useUrl()
 
   let page = switch url.path {
+  | list{"contact"} => Some(<Chat socket={socket.current} username={username.current} />)
   | list{} => None
   | _ => Some(<PageNotFound />)
   }

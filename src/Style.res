@@ -14,11 +14,11 @@ module Colors = {
 module Spacing = {
   let px = n => `${n->Belt.Float.toString}px`
 
-  let tiny = Js.Math.pow_float(~base=2., ~exp=4.)
-  let small = Js.Math.pow_float(~base=2., ~exp=5.)
-  let medium = Js.Math.pow_float(~base=2., ~exp=6.)
-  let large = Js.Math.pow_float(~base=2., ~exp=7.)
-  let huge = Js.Math.pow_float(~base=2., ~exp=8.)
+  let tiny = Js.Math.pow_float(~base=2., ~exp=3.)
+  let small = Js.Math.pow_float(~base=2., ~exp=4.)
+  let medium = Js.Math.pow_float(~base=2., ~exp=5.)
+  let large = Js.Math.pow_float(~base=2., ~exp=6.)
+  let huge = Js.Math.pow_float(~base=2., ~exp=7.)
 }
 
 injectGlobal(

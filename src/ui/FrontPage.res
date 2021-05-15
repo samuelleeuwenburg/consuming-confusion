@@ -5,15 +5,15 @@ module FrontPageLink = {
     open Emotion
 
     let link = css({
-      "margin-right": px(medium),
-      ":last-child": css({
-        "margin-right": "0",
+      "marginRight": px(large),
+      ":lastchild": css({
+        "marginRight": "0",
       }),
     })
 
     let superLink = css({
       "position": "relative",
-      "z-index": "2",
+      "zIndex": "2",
       "background": Colors.textColorLight,
     })
   }
@@ -28,8 +28,6 @@ module FrontPageLink = {
       (Styles.link, to)
     }
 
-    Js.log()
-
     <Link className={className} to={link}> children </Link>
   }
 }
@@ -42,27 +40,27 @@ module Styles = {
     "display": "flex",
     "height": "100vh",
     "width": "100%",
-    "flex-direction": "column",
-    "justify-content": "space-between",
+    "flexDirection": "column",
+    "justifyContent": "space-between",
     "padding": px(small),
   })
 
   let top = css({
     "display": "flex",
-    "justify-content": "space-between",
+    "justifyContent": "space-between",
   })
 
   let middle = css({
     "display": "flex",
-    "flex-direction": "column",
-    "justify-content": "flex-start",
-    "flex-grow": "1",
-    "padding-top": px(large),
+    "flexDirection": "column",
+    "justifyContent": "flex-start",
+    "flexGrow": "1",
+    "paddingTop": px(large),
   })
 
   let bottom = css({
     "display": "flex",
-    "justify-content": "space-between",
+    "justifyContent": "space-between",
   })
 }
 
