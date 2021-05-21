@@ -1,5 +1,6 @@
 module Styles = {
   open Emotion
+  open Style
   open Style.Spacing
 
   let wrapper = css({

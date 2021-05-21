@@ -1,15 +1,23 @@
 module FrontPageLink = {
   module Styles = {
     open Style
-    open Style.Spacing
     open Emotion
 
-    let link = css({
-      "marginRight": px(large),
-      ":lastchild": css({
-        "marginRight": "0",
-      }),
-    })
+    type align = Left | Right
+
+    let link = (a: align) =>
+      css({
+        "width": "282px",
+        "display": "inline-block",
+        "textAlign": if a == Left {
+          "left"
+        } else {
+          "right"
+        },
+        ":lastchild": css({
+          "marginRight": "0",
+        }),
+      })
 
     let superLink = css({
       "position": "relative",
@@ -19,13 +27,15 @@ module FrontPageLink = {
   }
 
   @react.component
-  let make = (~to: string, ~children: React.element) => {
+  let make = (~to: string, ~align: option<Styles.align>=?, ~children: React.element) => {
     let url = RescriptReactRouter.useUrl().path->Belt.List.reduce("/", (acc, part) => acc ++ part)
 
+    let align = align->Belt.Option.getWithDefault(Styles.Left)
+
     let (className, link) = if url == to {
-      (`${Styles.superLink} ${Styles.link}`, "/")
+      (`${Styles.superLink} ${Styles.link(align)}`, "/")
     } else {
-      (Styles.link, to)
+      (Styles.link(align), to)
     }
 
     <Link className={className} to={link}> children </Link>
@@ -34,7 +44,6 @@ module FrontPageLink = {
 
 module Styles = {
   open Emotion
-  open Style.Spacing
 
   let container = css({
     "display": "flex",
@@ -42,7 +51,7 @@ module Styles = {
     "width": "100%",
     "flexDirection": "column",
     "justifyContent": "space-between",
-    "padding": px(small),
+    "padding": "45px",
   })
 
   let top = css({
@@ -55,12 +64,16 @@ module Styles = {
     "flexDirection": "column",
     "justifyContent": "flex-start",
     "flexGrow": "1",
-    "paddingTop": px(large),
+    "paddingTop": "72px",
   })
 
   let bottom = css({
     "display": "flex",
     "justifyContent": "space-between",
+  })
+
+  let middleLink = css({
+    "marginBottom": "45px",
   })
 }
 
@@ -74,19 +87,27 @@ let make = () => {
       </div>
       <div> {React.string("The Sustainable Choice")} </div>
       <div>
-        <FrontPageLink to="/wishlist"> {React.string("Wishlist")} </FrontPageLink>
-        <FrontPageLink to="/shoppingbag"> {React.string("Shoppingbag")} </FrontPageLink>
+        <FrontPageLink align={FrontPageLink.Styles.Right} to="/wishlist">
+          {React.string("Wishlist")}
+        </FrontPageLink>
+        <FrontPageLink align={FrontPageLink.Styles.Right} to="/shoppingbag">
+          {React.string("Shoppingbag")}
+        </FrontPageLink>
       </div>
     </div>
     <div className={Styles.middle}>
-      <div> <FrontPageLink to="/collections"> {React.string("Collections")} </FrontPageLink> </div>
-      <div>
+      <div className={Styles.middleLink}>
+        <FrontPageLink to="/collections"> {React.string("Collections")} </FrontPageLink>
+      </div>
+      <div className={Styles.middleLink}>
         <FrontPageLink to="/sustainability"> {React.string("Sustainability")} </FrontPageLink>
       </div>
-      <div>
+      <div className={Styles.middleLink}>
         <FrontPageLink to="/responsibility"> {React.string("Responsibility")} </FrontPageLink>
       </div>
-      <div> <FrontPageLink to="/contact"> {React.string("Contact")} </FrontPageLink> </div>
+      <div className={Styles.middleLink}>
+        <FrontPageLink to="/contact"> {React.string("Contact")} </FrontPageLink>
+      </div>
     </div>
     <div className={Styles.bottom}>
       <div>
@@ -95,8 +116,12 @@ let make = () => {
       </div>
       <div> {React.string("The Sustainable Choice")} </div>
       <div>
-        <FrontPageLink to="/socials"> {React.string("[fb] [ig] [tw]")} </FrontPageLink>
-        <FrontPageLink to="/about"> {React.string("About")} </FrontPageLink>
+        <FrontPageLink align={FrontPageLink.Styles.Right} to="/socials">
+          {React.string("[fb] [ig] [tw]")}
+        </FrontPageLink>
+        <FrontPageLink align={FrontPageLink.Styles.Right} to="/about">
+          {React.string("About")}
+        </FrontPageLink>
       </div>
     </div>
   </div>
