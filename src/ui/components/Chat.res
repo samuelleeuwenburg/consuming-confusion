@@ -1,3 +1,14 @@
+@get external getValue: Dom.element => string = "value"
+@set external setValue: (Dom.element, string) => unit = "value"
+@send external scrollTo: (Dom.element, int, int) => unit = "scrollTo"
+@send external focus: Dom.element => unit = "focus"
+@get external getKeyCode: Dom.keyboardEvent => int = "keyCode"
+
+@scope("window") @val
+external addEventListener: (string, Dom.keyboardEvent => unit) => unit = "addEventListener"
+@scope("window") @val
+external removeEventListener: (string, Dom.keyboardEvent => unit) => unit = "removeEventListener"
+
 module Styles = {
   open Emotion
   open Style
@@ -7,14 +18,14 @@ module Styles = {
     "margin": "auto",
     "padding": px(medium),
     "maxWidth": "820px",
+    "border": "4px solid",
+    "borderRadius": px(small),
+    "padding": px(medium),
   })
 
   let chat = css({
     "height": "420px",
     "color": "inherit",
-    "border": "4px solid",
-    "padding": px(medium),
-    "borderRadius": px(small),
   })
 
   let chatScrollWrapper = css({
@@ -37,11 +48,6 @@ module Styles = {
   })
 }
 
-@get external getValue: Dom.element => string = "value"
-@set external setValue: (Dom.element, string) => unit = "value"
-@send external scrollTo: (Dom.element, int, int) => unit = "scrollTo"
-@send external focus: Dom.element => unit = "focus"
-
 let generateUsername = () => {
   let id = (Js.Math.random() *. 10000.)->Js.Math.floor
   `ConfusedConsumer#${id->Belt.Int.toString}`
@@ -52,6 +58,40 @@ let make = (~socket: SocketIO.socket, ~username: string) => {
   let (log, setLog) = React.useState(_ => None)
   let input = React.useRef(Js.Nullable.null)
   let chat = React.useRef(Js.Nullable.null)
+
+  let submit = _ => {
+    let input = input.current->Js.Nullable.toOption
+    let message =
+      input
+      ->Belt.Option.map(i => i->getValue->Js.String.trim)
+      ->Belt.Option.flatMap(s =>
+        if s == "" {
+          None
+        } else {
+          Some(s)
+        }
+      )
+
+    switch (input, message) {
+    | (Some(input), Some(message)) => {
+        let json = Js.Dict.empty()
+        Js.Dict.set(json, "message", Js.Json.string(message))
+        Js.Dict.set(json, "username", Js.Json.string(username))
+
+        socket->SocketIO.emit("add_message", Js.Json.object_(json))
+        input->setValue("")
+        input->focus
+      }
+    | _ => ()
+    }
+  }
+
+  let handleKeyDown = React.useCallback(e => {
+    switch e->getKeyCode {
+    | 13 => submit()
+    | _ => ()
+    }
+  })
 
   React.useEffect(() => {
     switch chat.current->Js.Nullable.toOption {
@@ -68,25 +108,15 @@ let make = (~socket: SocketIO.socket, ~username: string) => {
     }
 
     socket->SocketIO.on("get_log", handleLog)
+    addEventListener("keydown", handleKeyDown)
 
-    Some(() => socket->SocketIO.off("get_log", handleLog))
+    Some(
+      () => {
+        socket->SocketIO.off("get_log", handleLog)
+        removeEventListener("keydown", handleKeyDown)
+      },
+    )
   })
-
-  let onClick = _ => {
-    switch input.current->Js.Nullable.toOption {
-    | Some(input) => {
-        let message = Js.Dict.empty()
-        Js.Dict.set(message, "message", Js.Json.string(input->getValue))
-        Js.Dict.set(message, "username", Js.Json.string(username))
-
-        socket->SocketIO.emit("add_message", Js.Json.object_(message))
-        input->setValue("")
-        input->focus
-      }
-    | _ => ()
-    }
-  }
-
   let messages = log->Belt.Option.map(log => {
     log
     ->Belt.List.map(m => {
@@ -111,6 +141,6 @@ let make = (~socket: SocketIO.socket, ~username: string) => {
       </div>
     </div>
     <input className={Styles.input} type_="text" ref={ReactDOM.Ref.domRef(input)} />
-    <button className={Styles.button} onClick={onClick}> {React.string("send")} </button>
+    <button className={Styles.button} onClick={submit}> {React.string("send")} </button>
   </div>
 }
