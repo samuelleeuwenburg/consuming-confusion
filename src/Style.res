@@ -40,8 +40,8 @@ injectGlobal(
   body {
     background: ${Colors.bgColorLight};
     color: ${Colors.textColorDark};
-    font-size: 24px;
-    line-height: 28px;
+    font-size: 18px;
+    line-height: 24px;
   }
 
   html, body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, p, input, textarea {

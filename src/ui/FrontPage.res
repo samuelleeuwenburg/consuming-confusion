@@ -31,9 +31,9 @@ module FrontPageLink = {
         "background": Colors.textColorLight,
         "borderRadius": "50%",
         "width": "140%",
-        "height": "140%",
+        "height": "160%",
         "left": "-20%",
-        "top": "-20%",
+        "top": "-30%",
       }),
     })
 
@@ -109,6 +109,8 @@ module FrontPageLink = {
 
 module Styles = {
   open Emotion
+  open Style
+  open Style.Spacing
 
   let container = css({
     "display": "flex",
@@ -129,7 +131,7 @@ module Styles = {
     "flexDirection": "column",
     "justifyContent": "flex-start",
     "flexGrow": "1",
-    "paddingTop": "72px",
+    "paddingTop": "120px",
   })
 
   let bottom = css({
@@ -138,14 +140,17 @@ module Styles = {
   })
 
   let middleLink = css({
-    "marginBottom": "45px",
+    "marginBottom": px(medium),
   })
 
   let image = css({
     "objectFit": "cover",
+    "objectPosition": "50% 50%",
     "position": "absolute",
     "top": "50%",
     "left": "50%",
+    "width": "70vw",
+    "height": "70vh",
     "transform": "translate(-50%, -50%)",
   })
 }
