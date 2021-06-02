@@ -13,3 +13,18 @@ module P = {
     <p className={style}> children </p>
   }
 }
+
+module H1 = {
+  open Emotion
+  open Style
+  open Style.Spacing
+
+  let style = css({
+    "marginBottom": px(medium),
+  })
+
+  @react.component
+  let make = (~children: React.element) => {
+    <h1 className={style}> children </h1>
+  }
+}

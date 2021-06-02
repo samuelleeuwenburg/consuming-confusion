@@ -27,6 +27,11 @@ module Media = {
   let large = styles => css({"@media screen and (min-width: 1420px)": styles})
 }
 
+module Fonts = {
+  let regular = "'Roboto', sans-serif"
+  let heading = "'Playfair Display', serif"
+}
+
 injectGlobal(
   `
   html {
@@ -45,14 +50,14 @@ injectGlobal(
   }
 
   html, body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, p, input, textarea {
-    font-family: 'Roboto', sans-serif;
+    font-family: ${Fonts.regular};
     margin: 0;
     padding: 0;
     font-weight: 700;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: ${Fonts.heading};
   }
 
   a {

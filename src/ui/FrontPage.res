@@ -144,25 +144,71 @@ module Styles = {
   })
 
   let image = css({
-    "background-size": "cover",
-    "background-position": "center",
-    "background": "url('/images/front.jpg')",
+    "color": Colors.textColorLight,
+    "backgroundImage": "url('/images/front.jpg')",
+    "backgroundSize": "cover",
+    "backgroundPosition": "50% 100%",
     "position": "absolute",
     "top": "50%",
     "left": "50%",
     "width": "70vw",
     "height": "70vh",
     "transform": "translate(-50%, -50%)",
+    "display": "flex",
+    "flexDirection": "column",
+    "justifyContent": "space-between",
+    "alignItems": "center",
+    "textAlign": "center",
+    "padding": px(large),
     ":hover": css({
-      "background": "url('/images/front-hover.png')",
+      "backgroundImage": "url('/images/front-hover.png')",
     }),
+  })
+
+  let subTitle = css({
+    "fontSize": "48px",
+    "lineHeight": "100px",
+    "fontFamily": Fonts.regular,
+  })
+
+  let title = css({
+    "fontSize": "82px",
+    "lineHeight": "100px",
+    "fontFamily": Fonts.regular,
+  })
+
+  let italicHeading = css({
+    "fontFamily": Fonts.heading,
+  })
+
+  let buttons = css({
+    "display": "flex",
+  })
+
+  let button = css({
+    "border": `2px solid ${Colors.textColorLight}`,
+    "padding": px(small),
+    "margin": px(medium),
+    "borderRadius": px(small),
   })
 }
 
 @react.component
 let make = () => {
   <div className={Styles.container}>
-    <div className={Styles.image} />
+    <div className={Styles.image}>
+      <div>
+      <h2 className={Styles.subTitle}> <em> {React.string("for our future")} </em> </h2>
+      <h1 className={Styles.title}>
+        {React.string("Shop the ")}
+        <em className={Styles.italicHeading}> {React.string("Change")} </em>
+      </h1>
+      </div>
+      <div className={Styles.buttons}>
+        <div className={Styles.button}> {React.string("Shop Men")} </div>
+        <div className={Styles.button}> {React.string("Shop Women")} </div>
+      </div>
+    </div>
     <div className={Styles.top}>
       <div>
         <FrontPageLink hoverText="Are we collecting questions?" to="/new-collections">
