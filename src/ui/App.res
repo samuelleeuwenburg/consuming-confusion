@@ -4,7 +4,7 @@ module PageNotFound = {
 
     let wrapper = css({
       "display": "flex",
-      "height": "100vh",
+      "height": "70vh",
       "width": "100%",
       "justifyContent": "center",
       "alignItems": "center",
@@ -17,20 +17,65 @@ module PageNotFound = {
   }
 }
 
-module Styles = {
-  open Emotion
-  open Style
+module PageWrapper = {
+  module Styles = {
+    open Emotion
+    open Style
+    open Style.Spacing
 
-  let pageWrapper = css({
-    "background": Colors.bgColorDark,
-    "color": Colors.textColorLight,
-    "position": "absolute",
-    "top": "0",
-    "left": "0",
-    "height": "100vh",
-    "width": "100%",
-    "overflow": "scroll",
-  })
+    let pageOuterWrapper = css({
+      "background": Colors.bgColorDark,
+      "color": Colors.textColorLight,
+      "position": "absolute",
+      "top": "0",
+      "left": "0",
+      "height": "100vh",
+      "width": "100%",
+      "display": "block",
+      "overflow": "scroll",
+      "::before": css({
+        "content": "''",
+        "display": "block",
+        "top": "0",
+        "left": "10%",
+        "width": "80%",
+        "height": "15vh",
+        "position": "fixed",
+        "background": Colors.bgColorDark,
+      }),
+      "::after": css({
+        "content": "''",
+        "display": "block",
+        "bottom": "0",
+        "left": "10%",
+        "width": "80%",
+        "height": "15vh",
+        "position": "fixed",
+        "background": Colors.bgColorDark,
+      }),
+    })
+
+    let pageInnerWrapper = css({
+      "width": "70vw",
+      "margin": "auto",
+      "padding": "15vh 0",
+    })
+
+    let backLink = css({
+      "zIndex": "1",
+      "position": "fixed",
+      "bottom": px(medium),
+      "right": "320px",
+    })
+  }
+
+  @react.component
+  let make = (~children: React.element) => {
+    <div className={Styles.pageOuterWrapper}>
+      <div className={Styles.pageInnerWrapper}> children </div>
+      <Link className={Styles.backLink} to="/"> {React.string("Back to front")} </Link>
+    </div>
+  }
 }
 
 @react.component
@@ -41,6 +86,7 @@ let make = () => {
 
   let page = switch url.path {
   | list{"contact"} => Some(<Chat socket={socket.current} username={username.current} />)
+  | list{"sustainability"} => Some(<Sustainability />)
   | list{} => None
   | _ => Some(<PageNotFound />)
   }
@@ -48,7 +94,7 @@ let make = () => {
   <div>
     <FrontPage />
     {page
-    ->Belt.Option.map(page => <div className={Styles.pageWrapper}> page </div>)
+    ->Belt.Option.map(x => <PageWrapper> x </PageWrapper>)
     ->Belt.Option.getWithDefault(React.null)}
   </div>
 }

@@ -144,21 +144,25 @@ module Styles = {
   })
 
   let image = css({
-    "objectFit": "cover",
-    "objectPosition": "50% 50%",
+    "background-size": "cover",
+    "background-position": "center",
+    "background": "url('/images/front.jpg')",
     "position": "absolute",
     "top": "50%",
     "left": "50%",
     "width": "70vw",
     "height": "70vh",
     "transform": "translate(-50%, -50%)",
+    ":hover": css({
+      "background": "url('/images/front-hover.png')",
+    }),
   })
 }
 
 @react.component
 let make = () => {
   <div className={Styles.container}>
-    <img className={Styles.image} src="/hug.jpg" alt="the change" />
+    <div className={Styles.image} />
     <div className={Styles.top}>
       <div>
         <FrontPageLink hoverText="Are we collecting questions?" to="/new-collections">
