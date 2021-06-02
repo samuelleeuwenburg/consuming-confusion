@@ -195,6 +195,13 @@ module Styles = {
 
 @react.component
 let make = () => {
+  let (title, setTitle) = React.useState(_ => "The Sustainable Choice")
+
+  React.useEffect(() => {
+    let _ = Js.Global.setTimeout(() => setTitle(_ => "Consuming Confusion"), 10_000)
+    None
+  })
+
   <div className={Styles.container}>
     <div className={Styles.image}>
       <div>
@@ -221,7 +228,7 @@ let make = () => {
       <div>
         <FrontPageLink
           hoverText="What is sustainability?" to="/foo" textAlign={FrontPageLink.Styles.Center}>
-          {React.string("The Sustainable Choice")}
+          {React.string(title)}
         </FrontPageLink>
         {React.string("")}
       </div>
@@ -279,7 +286,7 @@ let make = () => {
           hoverPosition={FrontPageLink.Styles.Top}
           textAlign={FrontPageLink.Styles.Center}
           to="/foo">
-          {React.string("Consuming Confusion")}
+          {React.string(title)}
         </FrontPageLink>
       </div>
       <div>
