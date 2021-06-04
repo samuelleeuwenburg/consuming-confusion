@@ -1,3 +1,5 @@
+type logo = Sustainable | Confusion
+
 module FrontPageLink = {
   module Styles = {
     open Style
@@ -143,6 +145,44 @@ module Styles = {
     "marginBottom": px(medium),
   })
 
+  let logoSustainable = visible =>
+    css({
+      "height": "20px",
+      "opacity": if visible {
+        "1"
+      } else {
+        "0"
+      },
+    })
+
+  let logoConfusion = visible =>
+    css({
+      "height": "26px",
+      "top": "-1px",
+      "left": "0",
+      "position": "absolute",
+      "opacity": if visible {
+        "1"
+      } else {
+        "0"
+      },
+    })
+
+  let logoConsuming = visible =>
+    css({
+      "height": "26px",
+      "top": "-1px",
+      "left": "0",
+      "position": "absolute",
+      "zIndex": "100",
+      "filter": "invert(1)",
+      "opacity": if visible {
+        "1"
+      } else {
+        "0"
+      },
+    })
+
   let image = css({
     "color": Colors.textColorLight,
     "backgroundImage": "url('/images/front.jpg')",
@@ -195,21 +235,30 @@ module Styles = {
 
 @react.component
 let make = () => {
-  let (title, setTitle) = React.useState(_ => "The Sustainable Choice")
+  let url = RescriptReactRouter.useUrl().path->Belt.List.reduce("/", (acc, part) => acc ++ part)
+
+  let (logo, setTitle) = React.useState(_ => Sustainable)
 
   React.useEffect(() => {
-    let _ = Js.Global.setTimeout(() => setTitle(_ => "Consuming Confusion"), 10_000)
+    let _ = Js.Global.setTimeout(() => setTitle(_ => Confusion), 10_000)
     None
   })
+
+  let logoConsuming =
+    <img
+      className={Styles.logoConsuming(url != "/" && url != "/consuming-confusion")}
+      src={`/images/consumingconfusion.svg`}
+      alt="Consuming Confusion"
+    />
 
   <div className={Styles.container}>
     <div className={Styles.image}>
       <div>
-      <h2 className={Styles.subTitle}> <em> {React.string("for our future")} </em> </h2>
-      <h1 className={Styles.title}>
-        {React.string("Shop the ")}
-        <em className={Styles.italicHeading}> {React.string("Change")} </em>
-      </h1>
+        <h2 className={Styles.subTitle}> <em> {React.string("for our future")} </em> </h2>
+        <h1 className={Styles.title}>
+          {React.string("Shop the ")}
+          <em className={Styles.italicHeading}> {React.string("Change")} </em>
+        </h1>
       </div>
       <div className={Styles.buttons}>
         <div className={Styles.button}> {React.string("Shop Men")} </div>
@@ -227,10 +276,21 @@ let make = () => {
       </div>
       <div>
         <FrontPageLink
-          hoverText="What is sustainability?" to="/foo" textAlign={FrontPageLink.Styles.Center}>
-          {React.string(title)}
+          hoverText="What is Consuming Confusion?"
+          to="/consuming-confusion"
+          textAlign={FrontPageLink.Styles.Center}>
+          <img
+            className={Styles.logoSustainable(logo == Sustainable)}
+            src={`/images/thesustainablechoice.svg`}
+            alt="The Sustainable Choice"
+          />
+          <img
+            className={Styles.logoConfusion(logo == Confusion)}
+            src={`/images/consumingconfusion.svg`}
+            alt="Consuming Confusion"
+          />
+          {logoConsuming}
         </FrontPageLink>
-        {React.string("")}
       </div>
       <div>
         <FrontPageLink
@@ -257,7 +317,7 @@ let make = () => {
         </FrontPageLink>
       </div>
       <div className={Styles.middleLink}>
-        <FrontPageLink hoverText="hovertext!" to="/responsibility">
+        <FrontPageLink hoverText="Who is responsible for sustainability?" to="/responsibility">
           {React.string("Responsibility")}
         </FrontPageLink>
       </div>
@@ -285,8 +345,18 @@ let make = () => {
           hoverText="What is Consuming Confusion?"
           hoverPosition={FrontPageLink.Styles.Top}
           textAlign={FrontPageLink.Styles.Center}
-          to="/foo">
-          {React.string(title)}
+          to="/consuming-confusion">
+          <img
+            className={Styles.logoSustainable(logo == Sustainable)}
+            src={`/images/thesustainablechoice.svg`}
+            alt="The Sustainable Choice"
+          />
+          <img
+            className={Styles.logoConfusion(logo == Confusion)}
+            src={`/images/consumingconfusion.svg`}
+            alt="Consuming Confusion"
+          />
+          {logoConsuming}
         </FrontPageLink>
       </div>
       <div>
