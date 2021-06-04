@@ -64,8 +64,8 @@ module PageWrapper = {
     let backLink = css({
       "zIndex": "1",
       "position": "fixed",
-      "bottom": px(medium),
-      "right": "320px",
+      "bottom": "50px",
+      "right": "340px",
     })
   }
 

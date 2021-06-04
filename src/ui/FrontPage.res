@@ -139,6 +139,7 @@ module Styles = {
   let bottom = css({
     "display": "flex",
     "justifyContent": "space-between",
+    "alignItems": "center",
   })
 
   let middleLink = css({
@@ -230,6 +231,19 @@ module Styles = {
     "padding": px(small),
     "margin": px(medium),
     "borderRadius": px(small),
+  })
+
+  let socials = css({
+    "display": "flex",
+    "align-items": "center",
+  })
+
+  let social = css({
+    "display": "inline-block",
+    "height": "32px",
+    "marginLeft": px(tiny),
+    "position": "relative",
+    "top": "3px",
   })
 }
 
@@ -359,13 +373,15 @@ let make = () => {
           {logoConsuming}
         </FrontPageLink>
       </div>
-      <div>
+      <div className={Styles.socials}>
         <FrontPageLink
           hoverText="Ready to go back to the confusion?"
           hoverPosition={FrontPageLink.Styles.Top}
           textAlign={FrontPageLink.Styles.Right}
           to="/socials">
-          {React.string("[fb] [ig] [tw]")}
+          <img className={Styles.social} src="/images/icons/social4.svg" />
+          <img className={Styles.social} src="/images/icons/social5.svg" />
+          <img className={Styles.social} src="/images/icons/social6.svg" />
         </FrontPageLink>
         <FrontPageLink
           hoverText="Who is Consuming Confusion?"
