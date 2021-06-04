@@ -21,7 +21,6 @@ module PageWrapper = {
   module Styles = {
     open Emotion
     open Style
-    open Style.Spacing
 
     let pageOuterWrapper = css({
       "background": Colors.bgColorDark,

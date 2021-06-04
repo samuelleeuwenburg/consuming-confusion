@@ -32,7 +32,11 @@ let make = () => {
     })
 
   <>
-    <H1> {React.string("What is sustainability?")} </H1>
+    <H1>
+        {React.string("What is ")}
+        <Em>{React.string("sustainability")}</Em>
+        {React.string("?")}
+    </H1>
     <P>
       {React.string(
         "What is sustainability If you can even fuel your car sustainably, eat conscious meat and buy green fast fashion derived from mass production practices, things that in itself are inherently unsustainable? Sustainability is a matter of perspective.",
