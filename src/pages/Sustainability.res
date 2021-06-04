@@ -33,9 +33,7 @@ let make = () => {
 
   <>
     <H1>
-        {React.string("What is ")}
-        <Em>{React.string("sustainability")}</Em>
-        {React.string("?")}
+      {React.string("What is ")} <Em> {React.string("sustainability")} </Em> {React.string("?")}
     </H1>
     <P>
       {React.string(

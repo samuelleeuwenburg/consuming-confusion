@@ -378,7 +378,7 @@ let make = () => {
           hoverText="Ready to go back to the confusion?"
           hoverPosition={FrontPageLink.Styles.Top}
           textAlign={FrontPageLink.Styles.Right}
-          to="/socials">
+          to="/social">
           <img className={Styles.social} src="/images/icons/social4.svg" />
           <img className={Styles.social} src="/images/icons/social5.svg" />
           <img className={Styles.social} src="/images/icons/social6.svg" />

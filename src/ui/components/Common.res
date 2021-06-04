@@ -21,7 +21,7 @@ module H1 = {
 
   let style = css({
     "marginBottom": px(medium),
-    "fontFamily":  Fonts.regular,
+    "fontFamily": Fonts.regular,
     "fontSize": "inherit",
   })
 
@@ -35,7 +35,7 @@ module Em = {
   open Emotion
 
   let style = css({
-    "fontFamily":  Style.Fonts.heading,
+    "fontFamily": Style.Fonts.heading,
   })
 
   @react.component

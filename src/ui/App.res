@@ -85,6 +85,7 @@ let make = () => {
 
   let page = switch url.path {
   | list{"contact"} => Some(<Chat socket={socket.current} username={username.current} />)
+  | list{"social"} => Some(<Social />)
   | list{"sustainability"} => Some(<Sustainability />)
   | list{} => None
   | _ => Some(<PageNotFound />)
