@@ -26,7 +26,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           rm: true
-          source: "static,dist"
+          source: "static,src"
           target: ${{ secrets.REMOTE_DIR }}
 
       - name: Run Node
@@ -39,4 +39,4 @@ jobs:
           script: |
             cd ${{ secrets.REMOTE_DIR }}
             pm2 stop 'cc'
-            pm2 start ./dist/server.js --name 'cc'
+            pm2 start ./src/Server.bs.js --name 'cc'

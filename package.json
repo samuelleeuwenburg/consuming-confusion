@@ -8,7 +8,7 @@
     "res:format": "rescript format -all",
     "webpack:build": "webpack --mode=production",
     "webpack:watch": "webpack --mode=development --watch",
-    "start": "node dist/server.js",
+    "start": "node src/Server.bs.js",
     "clean": "rm -f static/bundle.* && rm -rf ./dist && npm run res:clean",
     "build": "npm run clean && npm run res:build && npm run webpack:build"
   },
@@ -25,7 +25,8 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "rescript": "*",
-    "socket.io": "^4.1.1"
+    "socket.io": "^4.1.1",
+    "sqlite3": "^5.0.2"
   },
   "devDependencies": {
     "webpack": "^5.36.2",

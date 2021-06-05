@@ -8,6 +8,12 @@ let (getLog, updateLog) = Log.init(list{})
 let app = express()
 let server = Http.createServer(app)
 let io = SocketIO.Server.server(server)
+let db = Sqlite.Database.new("db.sqlite3", (_e) => {
+  Js.log("opened db!")
+})
+
+db->Sqlite.Database.run("CREATE TABLE polls (id INT PRIMARY KEY)")
+db->Sqlite.Database.close
 
 io->SocketIO.Server.on("connection", socket => {
   socket->SocketIO.on("add_message", (data: Js.Json.t) => {
