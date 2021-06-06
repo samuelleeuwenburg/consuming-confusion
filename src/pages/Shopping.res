@@ -13,7 +13,5 @@ let image = css({
 
 @react.component
 let make = () => {
-  <div className={wrapper}>
-    <img className={image} src="/images/shopping/shopping.png" />
-  </div>
+  <div className={wrapper}> <img className={image} src="/images/shopping/shopping.png" /> </div>
 }

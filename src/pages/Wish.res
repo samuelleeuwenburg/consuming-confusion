@@ -15,16 +15,17 @@ module Styles = {
   })
 }
 
-let totalImages = 9;
+let totalImages = 9
 
 @react.component
 let make = () => {
-  let images = Belt.Array.range(0, totalImages)
+  let images =
+    Belt.Array.range(0, totalImages)
     ->Belt.Array.shuffle
     ->Belt.Array.map(i => {
       let url = `/images/wishlist/wish${(i + 1)->Belt.Int.toString}.svg`
       <img className={Styles.image} width="280" key={url} src={url} />
     })
 
-  <div className={Styles.wrapper}>{React.array(images)}</div>
+  <div className={Styles.wrapper}> {React.array(images)} </div>
 }

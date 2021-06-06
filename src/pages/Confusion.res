@@ -18,12 +18,16 @@ Consuming Confusion is a research that centralises the concept confusion within 
 ")}
     </P>
     <P>
-      <a href="#">{React.string("Request free online essay")}</a> <br/>
-      <a href="#">{React.string("Request printed version €15 (printed on demand)")}</a> <br/>
+      <a href="#"> {React.string("Request free online essay")} </a>
+      <br />
+      <a href="#"> {React.string("Request printed version €15 (printed on demand)")} </a>
+      <br />
     </P>
     <P>
-      {React.string("Consuming Confusion")} <br/>
-      {React.string("The Complexity of Sustainable Consumption.")} <br/>
+      {React.string("Consuming Confusion")}
+      <br />
+      {React.string("The Complexity of Sustainable Consumption.")}
+      <br />
       {React.string("Written by Julia Berg")}
     </P>
   </>
