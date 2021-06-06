@@ -56,6 +56,10 @@ module Button = {
     "borderRadius": px(small),
     "cursor": "pointer",
     "display": "inline-block",
+    "transition": "opacity 0.06s ease-in-out",
+    ":hover": css({
+      "opacity": "0.6",
+    }),
   })
 
   @react.component

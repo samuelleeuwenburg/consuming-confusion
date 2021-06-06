@@ -5,7 +5,7 @@ module Styles = {
 
   let wrapper = css({
     "position": "relative",
-    "textAlign": "center",
+    "maxWidth": "800px",
   })
 
   let svg = css({
@@ -17,7 +17,6 @@ module Styles = {
     "position": "absolute",
     "bottom": "0",
     "right": "0",
-    "textAlign": "left",
   })
 
   let legend = color =>

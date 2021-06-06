@@ -276,7 +276,7 @@ let make = () => {
     </div>
     <div className={Styles.top}>
       <div>
-        <FrontPageLink hoverText="Are we collecting questions?" to="/new-collections">
+        <FrontPageLink hoverText="Are we collecting questions?" to="/new">
           {React.string("New Collections")}
         </FrontPageLink>
         <FrontPageLink hoverText="Is sale a sustainable concept?" to="/sale">
