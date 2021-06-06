@@ -150,7 +150,7 @@ module Styles = {
 
   let logoSustainable = visible =>
     css({
-      "height": "20px",
+      "height": "16px",
       "opacity": if visible {
         "1"
       } else {
@@ -160,8 +160,8 @@ module Styles = {
 
   let logoConfusion = visible =>
     css({
-      "height": "26px",
-      "top": "-1px",
+      "height": "20px",
+      "top": "2px",
       "left": "0",
       "position": "absolute",
       "opacity": if visible {
@@ -173,8 +173,8 @@ module Styles = {
 
   let logoConsuming = visible =>
     css({
-      "height": "26px",
-      "top": "-1px",
+      "height": "20px",
+      "top": "2px",
       "left": "0",
       "position": "absolute",
       "zIndex": "100",
