@@ -49,9 +49,9 @@ io->SocketIO.Server.on("connection", socket => {
     let _ = db->Poll.vote(id)
   })
 
-  socket->SocketIO.on("poll_results", (id: string) => {
-    db->Poll.getResults(id, n => {
-      socket->SocketIO.emit("poll_results", n)
+  socket->SocketIO.on("get_results", () => {
+    db->Poll.getResults((_, n) => {
+      socket->SocketIO.emit("get_results", n)
     })
   })
 })

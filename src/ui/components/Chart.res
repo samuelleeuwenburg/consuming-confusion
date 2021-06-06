@@ -20,20 +20,21 @@ module Styles = {
     "textAlign": "left",
   })
 
-  let legend = color => css({
-    "background": color,
-    "height": "20px",
-    "width": "20px",
-    "marginRight": px(small),
-    "display": "inline-block",
-    "position": "relative",
-    "top": "6px",
-    "border": `1px solid ${Colors.colorLight}`,
-  })
+  let legend = color =>
+    css({
+      "background": color,
+      "height": "20px",
+      "width": "20px",
+      "marginRight": px(small),
+      "display": "inline-block",
+      "position": "relative",
+      "top": "6px",
+      "border": `1px solid ${Colors.colorLight}`,
+    })
 }
 
 type slice = {
-  value: int,
+  value: float,
   name: string,
 }
 
@@ -58,10 +59,10 @@ let getCoordinates = percent => {
 
 @react.component
 let make = (~data: array<slice>) => {
-  let total = data->Belt.Array.reduce(0, (t, s) => t + s.value)
+  let total = data->Belt.Array.reduce(0., (t, s) => t +. s.value)
 
   let (_, paths) = data->Belt.Array.reduceWithIndex((0.0, []), ((pos, elements), slice, index) => {
-    let percentage = Belt.Int.toFloat(slice.value) /. Belt.Int.toFloat(total)
+    let percentage = slice.value /. total
     Js.log(pos)
     let nextPos = pos +. percentage
     let (x1, y1) = getCoordinates(pos)
@@ -84,13 +85,12 @@ let make = (~data: array<slice>) => {
     let color = colors->Belt.Array.get(index)->Belt.Option.getWithDefault("#000000")
 
     <div key={slice.name}>
-      <div className={Styles.legend(color)} />
-      {React.string(slice.name)}
+      <div className={Styles.legend(color)} /> {React.string(slice.name)}
     </div>
   })
 
   <div className={Styles.wrapper}>
     <svg className={Styles.svg} viewBox="-1 -1 2 2"> {React.array(paths)} </svg>
-    <div className={Styles.legends}>{React.array(legends)}</div>
+    <div className={Styles.legends}> {React.array(legends)} </div>
   </div>
 }

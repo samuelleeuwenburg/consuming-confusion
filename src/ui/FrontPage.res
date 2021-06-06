@@ -1,3 +1,5 @@
+open Common
+
 type logo = Sustainable | Confusion
 
 module FrontPageLink = {
@@ -226,13 +228,6 @@ module Styles = {
     "display": "flex",
   })
 
-  let button = css({
-    "border": `2px solid ${Colors.textColorLight}`,
-    "padding": px(small),
-    "margin": px(medium),
-    "borderRadius": px(small),
-  })
-
   let socials = css({
     "display": "flex",
     "alignItems": "center",
@@ -275,8 +270,8 @@ let make = () => {
         </h1>
       </div>
       <div className={Styles.buttons}>
-        <div className={Styles.button}> {React.string("Shop Men")} </div>
-        <div className={Styles.button}> {React.string("Shop Women")} </div>
+        <Button> {React.string("Shop Men")} </Button>
+        <Button> {React.string("Shop Women")} </Button>
       </div>
     </div>
     <div className={Styles.top}>
