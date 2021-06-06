@@ -86,6 +86,7 @@ let make = () => {
   let page = switch url.path {
   | list{"consuming-confusion"} => Some(<Confusion />)
   | list{"about"} => Some(<About />)
+  | list{"wishlist"} => Some(<Wish />)
   | list{"subscribe"} => Some(<Subscribe />)
   | list{"shoppingbag"} => Some(<Shopping />)
   | list{"new"} => Some(<New socket={socket.current} />)
