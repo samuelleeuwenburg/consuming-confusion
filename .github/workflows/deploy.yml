@@ -25,7 +25,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          rm: true
           source: "static,src,node_modules"
           target: ${{ secrets.REMOTE_DIR }}
 
