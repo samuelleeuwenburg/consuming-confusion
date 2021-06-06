@@ -4,8 +4,8 @@ module P = {
   open Style.Spacing
 
   let style = css({
-    "maxWidth": "600px",
     "marginBottom": px(medium),
+    "text-align": "justify",
   })
 
   @react.component
