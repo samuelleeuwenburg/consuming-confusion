@@ -235,7 +235,7 @@ module Styles = {
 
   let socials = css({
     "display": "flex",
-    "align-items": "center",
+    "alignItems": "center",
   })
 
   let social = css({
