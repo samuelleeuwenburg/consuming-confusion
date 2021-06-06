@@ -8,12 +8,9 @@ let (getLog, updateLog) = Log.init(list{})
 let app = express()
 let server = Http.createServer(app)
 let io = SocketIO.Server.server(server)
-let db = Sqlite.Database.new("db.sqlite3", (_e) => {
-  Js.log("opened db!")
-})
+let db = Sqlite.Database.new("db.sqlite3", _e => Js.log("opened db!"))
 
-db->Sqlite.Database.run("CREATE TABLE polls (id INT PRIMARY KEY)")
-db->Sqlite.Database.close
+Poll.setupDb(db)
 
 io->SocketIO.Server.on("connection", socket => {
   socket->SocketIO.on("add_message", (data: Js.Json.t) => {
@@ -46,6 +43,16 @@ io->SocketIO.Server.on("connection", socket => {
 
   socket->SocketIO.on("get_log", () => {
     socket->SocketIO.emit("get_log", getLog())
+  })
+
+  socket->SocketIO.on("vote", (id: string) => {
+    let _ = db->Poll.vote(id)
+  })
+
+  socket->SocketIO.on("poll_results", (id: string) => {
+    db->Poll.getResults(id, n => {
+      socket->SocketIO.emit("poll_results", n)
+    })
   })
 })
 
