@@ -38,16 +38,15 @@ type slice = {
 }
 
 let colors = [
-  "#f0ece8",
-  "#dbd6d2",
-  "#d6cfc2",
-  "#bdb6ac",
-  "#d6d4d0",
-  "#a6a49f",
-  "#5c5a56",
-  "#3a3a39",
-  "#282722",
-  "#070a0c",
+  "#FBFFFE",
+  "#F0ECE8",
+  "#C7B7A9",
+  "#4A3D30",
+  "#251F18",
+  "#EFEFEF",
+  "#BFBFBF",
+  "#535353",
+  "#373737",
 ]
 
 let getCoordinates = percent => {
