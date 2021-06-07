@@ -92,7 +92,7 @@ let make = () => {
   | list{"new"} => Some(<New socket={socket.current} />)
   | list{"responsibility"} => Some(<Responsibility socket={socket.current} />)
   | list{"sale"} => Some(<Sale socket={socket.current} />)
-  | list{"contact"} => Some(<Chat socket={socket.current} username={username.current} />)
+  | list{"contact"} => Some(<Contact socket={socket.current} username={username.current} />)
   | list{"collections"} => Some(<Collections />)
   | list{"faq"} => Some(<FAQ />)
   | list{"social"} => Some(<Social />)

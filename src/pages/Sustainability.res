@@ -37,13 +37,10 @@ let make = () => {
     </H1>
     <P>
       {React.string(
-        "What is sustainability If you can even fuel your car sustainably, eat conscious meat and buy green fast fashion derived from mass production practices, things that in itself are inherently unsustainable? Sustainability is a matter of perspective.",
+        "What is sustainability If you can even fuel your car sustainably, eat conscious meat and buy green fast fashion derived from mass production practices, things that in itself are inherently unsustainable?",
       )}
-    </P>
-    <P>
-      {React.string("The perspectives are collected through")}
       <br />
-      {React.string("a survey from March 2021 to May 2021.")}
+      {React.string("Sustainability is a matter of perspective.")}
     </P>
     {images->React.array}
   </>
