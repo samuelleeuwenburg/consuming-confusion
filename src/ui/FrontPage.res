@@ -14,37 +14,46 @@ module FrontPageLink = {
     let link = (a: align) =>
       cx([
         css({
-          "position": "relative",
-          "display": "inline-block",
-          "margin": switch a {
-          | Left => `0 ${px(large)} 0 0`
-          | Right => `0 0 0 ${px(large)}`
-          | Center => "0"
-          },
+          "display": "block",
         }),
-        rawCss("&:hover em { display: block }"),
+        Media.medium(
+          css({
+            "position": "relative",
+            "display": "inline-block",
+            "margin": switch a {
+            | Left => `0 ${px(large)} 0 0`
+            | Right => `0 0 0 ${px(large)}`
+            | Center => "0"
+            },
+          }),
+        ),
+        Media.medium(rawCss("&:hover em { display: block }")),
       ])
 
-    let superLink = css({
-      "position": "relative",
-      "zIndex": "2",
-      "::after": css({
-        "content": "''",
-        "position": "absolute",
-        "display": "block",
-        "background": Colors.textColorLight,
-        "borderRadius": "50%",
-        "width": "140%",
-        "height": "160%",
-        "left": "-20%",
-        "top": "-30%",
+    let superLink = Media.medium(
+      css({
+        "position": "relative",
+        "zIndex": "2",
+        "::after": css({
+          "content": "''",
+          "position": "absolute",
+          "display": "block",
+          "background": Colors.textColorLight,
+          "borderRadius": "50%",
+          "width": "140%",
+          "height": "160%",
+          "left": "-20%",
+          "top": "-30%",
+        }),
       }),
-    })
+    )
 
-    let children = css({
-      "position": "relative",
-      "zIndex": "3",
-    })
+    let children = Media.medium(
+      css({
+        "position": "relative",
+        "zIndex": "3",
+      }),
+    )
 
     let hover = (position, align) => {
       let transform = switch (position, align) {
@@ -116,97 +125,155 @@ module Styles = {
   open Style
   open Style.Spacing
 
-  let container = css({
-    "display": "flex",
-    "height": "100vh",
-    "width": "100%",
-    "flexDirection": "column",
-    "justifyContent": "space-between",
-    "padding": "45px",
-  })
+  let container = cx([
+    css({
+      "display": "flex",
+      "padding": px(small),
+      "flexDirection": "column",
+    }),
+    Media.medium(
+      css({
+        "height": "100vh",
+        "width": "100%",
+        "justifyContent": "space-between",
+        "padding": "45px",
+      }),
+    ),
+  ])
 
-  let top = css({
-    "display": "flex",
-    "justifyContent": "space-between",
-  })
+  let top = cx([
+    css({
+      "display": "flex",
+      "justifyContent": "space-between",
+      "flexDirection": "column",
+      "marginBottom": px(medium),
+    }),
+    Media.medium(
+      css({
+        "flexDirection": "row",
+        "margin": "0",
+      }),
+    ),
+  ])
 
-  let middle = css({
-    "display": "flex",
-    "flexDirection": "column",
-    "justifyContent": "flex-start",
-    "flexGrow": "1",
-    "paddingTop": "120px",
-  })
+  let middle = cx([
+    css({
+      "display": "flex",
+      "flexDirection": "column",
+      "justifyContent": "flex-start",
+      "flexGrow": "1",
+      "marginBottom": px(medium),
+    }),
+    Media.medium(
+      css({
+        "paddingTop": "120px",
+      }),
+    ),
+  ])
 
-  let bottom = css({
-    "display": "flex",
-    "justifyContent": "space-between",
-    "alignItems": "center",
-  })
+  let bottom = cx([
+    css({
+      "marginBottom": px(medium),
+    }),
+    Media.medium(
+      css({
+        "display": "flex",
+        "justifyContent": "space-between",
+        "alignItems": "center",
+        "margin": "0",
+      }),
+    ),
+  ])
 
-  let middleLink = css({
-    "marginBottom": px(medium),
-  })
+  let middleLink = cx([
+    Media.medium(
+      css({
+        "marginBottom": px(medium),
+      }),
+    ),
+  ])
 
   let logoSustainable = visible =>
-    css({
-      "height": "16px",
-      "opacity": if visible {
-        "1"
-      } else {
-        "0"
-      },
-    })
+    cx([
+      css({"display": "none"}),
+      css({
+        "display": "block",
+        "height": "16px",
+        "opacity": if visible {
+          "1"
+        } else {
+          "0"
+        },
+      }),
+    ])
 
   let logoConfusion = visible =>
-    css({
-      "height": "20px",
-      "top": "2px",
-      "left": "0",
-      "position": "absolute",
-      "opacity": if visible {
-        "1"
-      } else {
-        "0"
-      },
-    })
+    cx([
+      css({"display": "none"}),
+      css({
+        "display": "block",
+        "height": "20px",
+        "top": "2px",
+        "left": "0",
+        "position": "absolute",
+        "opacity": if visible {
+          "1"
+        } else {
+          "0"
+        },
+      }),
+    ])
 
   let logoConsuming = visible =>
-    css({
-      "height": "20px",
-      "top": "2px",
-      "left": "0",
-      "position": "absolute",
-      "zIndex": "100",
-      "filter": "invert(1)",
-      "opacity": if visible {
-        "1"
-      } else {
-        "0"
-      },
-    })
+    cx([
+      css({"display": "none"}),
+      css({
+        "display": "block",
+        "height": "20px",
+        "top": "2px",
+        "left": "0",
+        "position": "absolute",
+        "zIndex": "100",
+        "filter": "invert(1)",
+        "opacity": if visible {
+          "1"
+        } else {
+          "0"
+        },
+      }),
+    ])
 
-  let image = css({
-    "color": Colors.textColorLight,
-    "backgroundImage": "url('/images/front.jpg')",
-    "backgroundSize": "cover",
-    "backgroundPosition": "50% 100%",
-    "position": "absolute",
-    "top": "50%",
-    "left": "50%",
-    "width": "70vw",
-    "height": "70vh",
-    "transform": "translate(-50%, -50%)",
-    "display": "flex",
-    "flexDirection": "column",
-    "justifyContent": "space-between",
-    "alignItems": "center",
-    "textAlign": "center",
-    "padding": px(large),
-    ":hover": css({
-      "backgroundImage": "url('/images/front-hover.png')",
+  let image = cx([
+    css({
+      "width": "100%",
+      "backgroundImage": "url('/images/front.jpg')",
+      "backgroundSize": "cover",
+      "backgroundPosition": "50% 100%",
+      "color": Colors.textColorLight,
+      "padding": px(small),
+      "marginBottom": px(medium),
     }),
-  })
+    Media.medium(
+      css({
+        "padding": px(large),
+        "position": "absolute",
+        "top": "50%",
+        "left": "50%",
+        "width": "70vw",
+        "height": "70vh",
+        "transform": "translate(-50%, -50%)",
+        "display": "flex",
+        "flexDirection": "column",
+        "justifyContent": "space-between",
+        "alignItems": "center",
+        "textAlign": "center",
+        "margin": "auto",
+        ":hover": css({
+          "backgroundImage": "url('/images/front-hover.png')",
+        }),
+      }),
+    ),
+  ])
 
   let subTitle = css({
     "fontSize": "48px",
@@ -228,10 +295,17 @@ module Styles = {
     "display": "flex",
   })
 
-  let socials = css({
-    "display": "flex",
-    "alignItems": "center",
-  })
+  let socials = cx([
+    css({
+      "display": "block",
+    }),
+    Media.medium(
+      css({
+        "display": "flex",
+        "alignItems": "center",
+      }),
+    ),
+  ])
 
   let social = css({
     "display": "inline-block",
