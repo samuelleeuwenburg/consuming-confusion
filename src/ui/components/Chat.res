@@ -17,15 +17,18 @@ module Styles = {
   let wrapper = css({
     "margin": "auto",
     "padding": px(medium),
-    "maxWidth": "820px",
+    "width": "100%",
+    "height": "100%",
     "border": "4px solid",
     "borderRadius": px(small),
-    "padding": px(medium),
+    "padding": `${px(medium)} ${px(small)} ${px(large)} ${px(small)}`,
+    "position": "relative",
   })
 
   let chat = css({
-    "height": "420px",
+    "height": "100%",
     "color": "inherit",
+    "marginBottom": px(small),
   })
 
   let chatScrollWrapper = css({
@@ -34,13 +37,24 @@ module Styles = {
   })
 
   let input = css({
-    "fontSize": "18px",
-    "padding": px(small),
+    "fontSize": "14px",
+    "padding": px(tiny),
+    "width": "100%",
+    "border-radius": px(medium),
+    "background": Colors.colorLight,
   })
 
   let button = css({
-    "fontSize": "18px",
-    "padding": px(small),
+    "border": "0",
+    "backgroundImage": "url('/images/proceed.svg')",
+    "backgroundSize": "cover",
+    "width": "30px",
+    "height": "30px",
+    "position": "absolute",
+    "borderRadius": "50%",
+    "bottom": "15px",
+    "right": "21px",
+    "cursor": "pointer",
   })
 
   let highlight = css({
@@ -141,6 +155,6 @@ let make = (~socket: SocketIO.socket, ~username: string) => {
       </div>
     </div>
     <input className={Styles.input} type_="text" ref={ReactDOM.Ref.domRef(input)} />
-    <button className={Styles.button} onClick={submit}> {React.string("send")} </button>
+    <button className={Styles.button} onClick={submit} />
   </div>
 }
