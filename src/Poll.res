@@ -1,5 +1,10 @@
 open Sqlite.Database
 
+type poll = {
+  id: string,
+  votes: int,
+}
+
 let setupDb = db => {
   db->serialize(() => {
     db
@@ -27,15 +32,78 @@ let setupDb = db => {
   })
 }
 
-let vote = (db, id) => {
+let decode = (o: Js.Json.t) => {
+  o
+  ->Js.Json.decodeArray
+  ->Belt.Option.map(a => {
+    a->Belt.Array.map(o => {
+      let id =
+        o
+        ->Js.Json.decodeObject
+        ->Belt.Option.flatMap(dict => dict->Js.Dict.get("id"))
+        ->Belt.Option.flatMap(json => json->Js.Json.decodeString)
+
+      let votes =
+        o
+        ->Js.Json.decodeObject
+        ->Belt.Option.flatMap(dict => dict->Js.Dict.get("votes"))
+        ->Belt.Option.flatMap(json => json->Js.Json.decodeNumber)
+        ->Belt.Option.map(Belt.Float.toInt)
+
+      switch (id, votes) {
+      | (Some(id), Some(votes)) => {id: id, votes: votes}
+      | _ => {id: "corrupt data", votes: 0}
+      }
+    })
+  })
+}
+
+let setVotes = (db, poll: poll) => {
   db->serialize(() => {
-    db->runArgs("UPDATE polls SET votes = votes + 1 WHERE id = $id", {"$id": id})
+    db->runArgs(
+      "UPDATE polls SET votes = $votes WHERE id = $id",
+      {"$votes": poll.votes, "$id": poll.id},
+    )
   })
   db
+}
+
+let saveToDb = (db, polls: array<poll>) => {
+  polls->Belt.Array.forEach(poll => setVotes(db, poll)->ignore)
 }
 
 let getResults = (db, fn) => {
   db->serialize(() => {
     db->all("SELECT * FROM polls", fn)
   })
+}
+
+type t = array<poll>
+type action = Vote(string) | GetServerResults(array<poll>)
+type updateFn = (t, action) => t
+
+let update = (polls, action) => {
+  switch action {
+  | Vote(id) =>
+    polls->Belt.Array.reduce([], (xs, x) => {
+      if x.id == id {
+        xs->Belt.Array.concat([{id: id, votes: x.votes + 1}])
+      } else {
+        xs->Belt.Array.concat([x])
+      }
+    })
+  | GetServerResults(polls) => polls
+  }
+}
+
+let init = (initialState: t) => {
+  let polls = ref(initialState)
+
+  let get = () => polls.contents
+
+  let set = (action: action) => {
+    polls := update(polls.contents, action)
+  }
+
+  (get, set)
 }

@@ -196,15 +196,17 @@ module Styles = {
   let logos = cx([
     css({
       "display": "none",
+    }),
+    Media.medium(
+      css({
+        "display": "block",
+        "position": "absolute",
+        "left": "50%",
+        "transform": "translateX(-50%)",
+        "zIndex": "1",
       }),
-    Media.medium(css({
-      "display": "block",
-    "position": "absolute",
-    "left": "50%",
-    "transform": "translateX(-50%)",
-    "zIndex": "1",
-    })),
-    ])
+    ),
+  ])
 
   let logoSustainable = visible =>
     cx([

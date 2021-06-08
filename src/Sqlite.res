@@ -1,7 +1,7 @@
 module Database = {
   type t
   type error
-  type result
+  type result = Js.Json.t
 
   @module("sqlite3") @new external new: (string, error => unit) => t = "Database"
 
