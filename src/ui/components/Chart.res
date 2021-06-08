@@ -5,18 +5,23 @@ module Styles = {
 
   let wrapper = css({
     "position": "relative",
-    "maxWidth": "800px",
+    "maxWidth": "70%",
+    "margin": "auto",
+    "textAlign": "center",
   })
 
   let svg = css({
-    "height": "50vh",
+    "width": "80%",
+    "maxWidth": "600px",
     "transform": "rotate(-90deg)",
   })
 
   let legends = css({
     "position": "absolute",
     "bottom": "0",
-    "right": "0",
+    "left": "92%",
+    "textAlign": "left",
+    "width": "320px",
   })
 
   let legend = color =>

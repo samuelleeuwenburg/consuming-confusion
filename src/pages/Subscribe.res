@@ -15,6 +15,7 @@ let text = css({
 
 let images = css({
   "width": "50%",
+  "textAlign": "center",
 })
 
 let fullImage = css({

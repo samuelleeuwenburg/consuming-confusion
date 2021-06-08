@@ -6,11 +6,11 @@ module Styles = {
   let wrapper = css({
     "display": "flex",
     "flexWrap": "wrap",
-    "justifyContent": "flex-start",
+    "justifyContent": "space-evenly",
   })
 
   let image = css({
-    "marginBottom": px(small),
+    "marginBottom": px(large),
     "marginRight": px(small),
   })
 }

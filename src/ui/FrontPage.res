@@ -193,11 +193,22 @@ module Styles = {
     ),
   ])
 
+  let logos = cx([
+    css({
+      "display": "none",
+      }),
+    Media.medium(css({
+      "display": "block",
+    "position": "absolute",
+    "left": "50%",
+    "transform": "translateX(-50%)",
+    "zIndex": "1",
+    })),
+    ])
+
   let logoSustainable = visible =>
     cx([
-      css({"display": "none"}),
       css({
-        "display": "block",
         "height": "16px",
         "opacity": if visible {
           "1"
@@ -209,9 +220,7 @@ module Styles = {
 
   let logoConfusion = visible =>
     cx([
-      css({"display": "none"}),
       css({
-        "display": "block",
         "height": "20px",
         "top": "2px",
         "left": "0",
@@ -226,9 +235,7 @@ module Styles = {
 
   let logoConsuming = visible =>
     cx([
-      css({"display": "none"}),
       css({
-        "display": "block",
         "height": "20px",
         "top": "2px",
         "left": "0",
@@ -350,14 +357,14 @@ let make = () => {
     </div>
     <div className={Styles.top}>
       <div>
-        <FrontPageLink hoverText="Are we collecting questions?" to="/new">
+        <FrontPageLink hoverText="Is new a sustainable concept?" to="/new">
           {React.string("New Collections")}
         </FrontPageLink>
         <FrontPageLink hoverText="Is sale a sustainable concept?" to="/sale">
           {React.string("Sale")}
         </FrontPageLink>
       </div>
-      <div>
+      <div className={Styles.logos}>
         <FrontPageLink
           hoverText="What is Consuming Confusion?"
           to="/consuming-confusion"
@@ -423,7 +430,7 @@ let make = () => {
           {React.string("FAQ")}
         </FrontPageLink>
       </div>
-      <div>
+      <div className={Styles.logos}>
         <FrontPageLink
           hoverText="What is Consuming Confusion?"
           hoverPosition={FrontPageLink.Styles.Top}

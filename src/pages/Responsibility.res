@@ -5,7 +5,7 @@ let make = (~socket: SocketIO.socket) => {
   <>
     <H1>
       {React.string("Who is ")}
-      <Em> {React.string("Responsible")} </Em>
+      <Em> {React.string("responsible")} </Em>
       {React.string(" for sustainability?")}
     </H1>
     <P>
