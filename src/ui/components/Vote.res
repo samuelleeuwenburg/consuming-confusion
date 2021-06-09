@@ -7,10 +7,13 @@ type result = {
 }
 
 @react.component
-let make = (~socket: SocketIO.socket, ~questions: array<(string, string)>) => {
+let make = (
+  ~socket: SocketIO.socket,
+  ~questions: array<(string, string)>,
+  ~polls: option<array<Poll.poll>>,
+) => {
   let key = questions->Belt.Array.reduce("", (xs, (x, _)) => xs ++ x)
   let (hasVoted, setHasVoted) = React.useState(_ => localStorage->getItem(key)->Belt.Option.isSome)
-  let (results, setResults) = React.useState(_ => None)
 
   let vote = React.useCallback(q => {
     socket->SocketIO.emit("vote", q)
@@ -18,34 +21,19 @@ let make = (~socket: SocketIO.socket, ~questions: array<(string, string)>) => {
     setHasVoted(_ => true)
   })
 
-  let handleLog = React.useCallback((results: array<result>) => {
+  let buttons = questions->Belt.Array.map(((key, name)) => {
+    <Button key={key} onClick={_ => vote(key)}> {React.string(name)} </Button>
+  })
+
+  let results = polls->Belt.Option.map(polls => {
     open Chart
-    let filtered = results->Belt.Array.reduce([], (xs, x) => {
+
+    polls->Belt.Array.reduce([], (xs, x) => {
       switch questions->Js.Array2.find(((id, _)) => id == x.id) {
-      | Some((_, name)) => xs->Belt.Array.concat([{value: x.votes, name: name}])
+      | Some((_, name)) => xs->Belt.Array.concat([{value: x.votes->Belt.Int.toFloat, name: name}])
       | None => xs
       }
     })
-
-    setResults(_ => Some(filtered))
-  })
-
-  React.useEffect(() => {
-    socket->SocketIO.on("get_results", handleLog)
-
-    if results == None {
-      socket->SocketIO.emit("get_results", ())
-    }
-
-    Some(
-      () => {
-        socket->SocketIO.off("get_results", handleLog)
-      },
-    )
-  })
-
-  let buttons = questions->Belt.Array.map(((key, name)) => {
-    <Button key={key} onClick={_ => vote(key)}> {React.string(name)} </Button>
   })
 
   switch (hasVoted, results) {

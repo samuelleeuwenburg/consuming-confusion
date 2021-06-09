@@ -40,6 +40,11 @@ let make = () => {
           "In this study you will see a multitude of 98 emails from 7 different websites in 1 month. All these websites promote sustainability. This study clarifies how much we see and receive. Consuming confusion thinks it is important to question this fastness and volume. As the speed and multiplicity in which our market operates contributes to our relationship with products. Speed can affect how we perceive things. While multiplicity makes us less focused, there is less room to ask critical questions on: sustainability, production and working conditions. The speed and variety contribute to our impulse to buy.",
         )}
       </P>
+      <P>
+        {React.string(
+          "* The logos in the visualisations are purely used as illustration and in no way serve a commercial function",
+        )}
+      </P>
     </div>
     <div className={images}>
       <img className={fullImage} src="/images/subscribe/subscribe1.svg" />

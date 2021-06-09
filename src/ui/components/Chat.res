@@ -63,8 +63,17 @@ module Styles = {
 }
 
 let generateUsername = () => {
-  let id = (Js.Math.random() *. 10000.)->Js.Math.floor
-  `ConfusedConsumer#${id->Belt.Int.toString}`
+  open Dom.Storage2
+
+  switch localStorage->getItem("whoami") {
+  | Some(username) => username
+  | None => {
+      let id = (Js.Math.random() *. 10000.)->Js.Math.floor
+      let username = `ConfusedConsumer#${id->Belt.Int.toString}`
+      localStorage->setItem("whoami", username)
+      username
+    }
+  }
 }
 
 @react.component

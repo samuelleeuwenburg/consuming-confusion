@@ -4,15 +4,16 @@ module Path = {
 
 open Express
 
-let db = Sqlite.Database.new("db.sqlite3", _e => Js.log("opened db!"))
-Poll.setupDb(db)
-
-let (getLog, updateLog) = Log.init(list{})
-let (getPolls, updatePoll) = Poll.init([])
-
 let app = express()
 let server = Http.createServer(app)
 let io = SocketIO.Server.server(server)
+let db = Sqlite.Database.new("db.sqlite3", _error => Js.log("opened db!"))
+
+Poll.setupDb(db)
+Log.setupDb(db)
+
+let (getLog, updateLog) = Log.init(list{})
+let (getPolls, updatePoll) = Poll.init([])
 
 db->Poll.getResults((_, data) => {
   switch Poll.decode(data) {
@@ -21,10 +22,18 @@ db->Poll.getResults((_, data) => {
   }
 })
 
+db->Log.getMessages((_, data) => {
+  switch Log.decode(data) {
+  | Some(m) => updateLog(Log.GetServerResults(m))
+  | None => ()
+  }
+})
+
 let tick = () => {
   let now = Js.Date.make()->Js.Date.toISOString
   Js.log(`${now} tick!`)
   Poll.saveToDb(db, getPolls())
+  Log.saveToDb(db, getLog())
 }
 
 io->SocketIO.Server.on("connection", socket => {
@@ -62,6 +71,7 @@ io->SocketIO.Server.on("connection", socket => {
 
   socket->SocketIO.on("vote", (id: string) => {
     updatePoll(Poll.Vote(id))
+    socket->SocketIO.emit("get_results", getPolls())
   })
 
   socket->SocketIO.on("get_results", () => {
@@ -90,4 +100,4 @@ server->Http.listen(3000, () => {
   Js.log("listening on port 3000")
 })
 
-Js.Global.setInterval(tick, 3600_000)->ignore
+Js.Global.setInterval(tick, 300_000)->ignore

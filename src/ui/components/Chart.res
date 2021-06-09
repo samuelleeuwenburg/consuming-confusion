@@ -66,7 +66,6 @@ let make = (~data: array<slice>) => {
 
   let (_, paths) = data->Belt.Array.reduceWithIndex((0.0, []), ((pos, elements), slice, index) => {
     let percentage = slice.value /. total
-    Js.log(pos)
     let nextPos = pos +. percentage
     let (x1, y1) = getCoordinates(pos)
     let (x2, y2) = getCoordinates(nextPos)

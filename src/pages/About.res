@@ -28,6 +28,10 @@ let make = () => {
       <br />
     </P>
     <P>
+      {React.string("The entire website is open source ")}
+      <a href="https://github.com/samuelleeuwenburg/consuming-confusion/" target="_blank"> {React.string("(view source code)")} </a>
+    </P>
+    <P>
       {React.string("Colophon")}
       <br />
       {React.string("This website is part of a broader research into Consuming Confusion.")}

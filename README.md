@@ -1,1 +1,1 @@
-# Consuming Confusion
+# [Consuming Confusion](https://consumingconfusion.online)

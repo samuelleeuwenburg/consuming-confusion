@@ -81,7 +81,28 @@ module PageWrapper = {
 let make = () => {
   let socket = React.useRef(SocketIO.Client.io())
   let username = React.useRef(Chat.generateUsername())
+  let (polls, setPolls) = React.useState(() => None)
   let url = RescriptReactRouter.useUrl()
+
+  let handleNewPolls = React.useCallback((result: array<Poll.poll>) => {
+    Js.log("new polls")
+    Js.log(result)
+    setPolls(_ => Some(result))
+  })
+
+  React.useEffect(() => {
+    socket.current->SocketIO.on("get_results", handleNewPolls)
+
+    if polls == None {
+      socket.current->SocketIO.emit("get_results", ())
+    }
+
+    Some(
+      () => {
+        socket.current->SocketIO.off("get_results", handleNewPolls)
+      },
+    )
+  })
 
   let page = switch url.path {
   | list{"consuming-confusion"} => Some(<Confusion />)
@@ -89,9 +110,9 @@ let make = () => {
   | list{"wishlist"} => Some(<Wish />)
   | list{"subscribe"} => Some(<Subscribe />)
   | list{"shoppingbag"} => Some(<Shopping />)
-  | list{"new"} => Some(<New socket={socket.current} />)
-  | list{"responsibility"} => Some(<Responsibility socket={socket.current} />)
-  | list{"sale"} => Some(<Sale socket={socket.current} />)
+  | list{"new"} => Some(<New polls={polls} socket={socket.current} />)
+  | list{"sale"} => Some(<Sale polls={polls} socket={socket.current} />)
+  | list{"responsibility"} => Some(<Responsibility polls={polls} socket={socket.current} />)
   | list{"contact"} => Some(<Contact socket={socket.current} username={username.current} />)
   | list{"collections"} => Some(<Collections />)
   | list{"faq"} => Some(<FAQ />)
