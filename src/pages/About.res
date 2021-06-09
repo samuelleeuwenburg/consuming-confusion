@@ -29,7 +29,9 @@ let make = () => {
     </P>
     <P>
       {React.string("The entire website is open source ")}
-      <a href="https://github.com/samuelleeuwenburg/consuming-confusion/" target="_blank"> {React.string("(view source code)")} </a>
+      <a href="https://github.com/samuelleeuwenburg/consuming-confusion/" target="_blank">
+        {React.string("(view source code)")}
+      </a>
     </P>
     <P>
       {React.string("Colophon")}
