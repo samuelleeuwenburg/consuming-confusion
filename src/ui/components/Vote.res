@@ -7,13 +7,28 @@ type result = {
 }
 
 @react.component
-let make = (
-  ~socket: SocketIO.socket,
-  ~questions: array<(string, string)>,
-  ~polls: option<array<Poll.poll>>,
-) => {
+let make = (~socket: SocketIO.socket, ~questions: array<(string, string)>) => {
   let key = questions->Belt.Array.reduce("", (xs, (x, _)) => xs ++ x)
   let (hasVoted, setHasVoted) = React.useState(_ => localStorage->getItem(key)->Belt.Option.isSome)
+  let (polls, setPolls) = React.useState(() => None)
+
+  let handleNewPolls = React.useCallback((result: array<Poll.poll>) => {
+    setPolls(_ => Some(result))
+  })
+
+  React.useEffect(() => {
+    socket->SocketIO.on("get_results", handleNewPolls)
+
+    if polls == None {
+      socket->SocketIO.emit("get_results", ())
+    }
+
+    Some(
+      () => {
+        socket->SocketIO.off("get_results", handleNewPolls)
+      },
+    )
+  })
 
   let vote = React.useCallback(q => {
     socket->SocketIO.emit("vote", q)

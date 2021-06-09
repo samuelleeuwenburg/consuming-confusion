@@ -1,7 +1,7 @@
 open Common
 
 @react.component
-let make = (~socket: SocketIO.socket, ~polls: option<array<Poll.poll>>) => {
+let make = (~socket: SocketIO.socket) => {
   <>
     <H1>
       {React.string("Is ")}
@@ -9,9 +9,7 @@ let make = (~socket: SocketIO.socket, ~polls: option<array<Poll.poll>>) => {
       {React.string(" a sustainable concept?")}
     </H1>
     <Vote
-      socket={socket}
-      questions={[("new.no", "NO"), ("new.yes", "YES"), ("new.other", "OTHER")]}
-      polls={polls}
+      socket={socket} questions={[("new.no", "NO"), ("new.yes", "YES"), ("new.other", "OTHER")]}
     />
   </>
 }

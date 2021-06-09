@@ -133,6 +133,11 @@ let make = (~socket: SocketIO.socket, ~username: string) => {
     socket->SocketIO.on("get_log", handleLog)
     addEventListener("keydown", handleKeyDown)
 
+    switch input.current->Js.Nullable.toOption {
+    | Some(input) => input->focus
+    | None => ()
+    }
+
     Some(
       () => {
         socket->SocketIO.off("get_log", handleLog)
