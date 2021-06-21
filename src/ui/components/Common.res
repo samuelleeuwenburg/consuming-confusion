@@ -49,18 +49,26 @@ module Button = {
   open Style
   open Style.Spacing
 
-  let style = css({
-    "border": `2px solid ${Colors.textColorLight}`,
-    "padding": px(small),
-    "margin": px(medium),
-    "borderRadius": px(small),
-    "cursor": "pointer",
-    "display": "inline-block",
-    "transition": "opacity 0.06s ease-in-out",
-    ":hover": css({
-      "opacity": "0.6",
+  let style = cx([
+    css({
+      "border": `2px solid ${Colors.textColorLight}`,
+      "padding": px(tiny),
+      "margin": px(tiny),
+      "borderRadius": px(small),
+      "cursor": "pointer",
+      "display": "inline-block",
+      "transition": "opacity 0.06s ease-in-out",
+      ":hover": css({
+        "opacity": "0.6",
+      }),
     }),
-  })
+    Media.medium(
+      css({
+        "padding": px(small),
+        "margin": px(medium),
+      }),
+    ),
+  ])
 
   @react.component
   let make = (~children: React.element, ~onClick=?) => {

@@ -22,50 +22,77 @@ module PageWrapper = {
     open Emotion
     open Style
 
-    let pageOuterWrapper = css({
-      "background": Colors.bgColorDark,
-      "color": Colors.textColorLight,
-      "position": "absolute",
-      "top": "0",
-      "left": "0",
-      "height": "100vh",
-      "width": "100%",
-      "display": "block",
-      "overflow": "scroll",
-      "::before": css({
-        "content": "''",
-        "display": "block",
+    let pageOuterWrapper = cx([
+      css({
+        "background": Colors.bgColorDark,
+        "color": Colors.textColorLight,
+        "position": "fixed",
         "top": "0",
-        "left": "10%",
-        "width": "80%",
-        "height": "15vh",
-        "position": "fixed",
-        "background": Colors.bgColorDark,
-      }),
-      "::after": css({
-        "content": "''",
+        "left": "0",
+        "height": "100vh",
         "display": "block",
-        "bottom": "0",
-        "left": "10%",
-        "width": "80%",
-        "height": "15vh",
-        "position": "fixed",
-        "background": Colors.bgColorDark,
+        "width": "100vw",
+        "overflow-x": "hidden",
+        "overflow-y": "scroll",
       }),
-    })
+      Media.medium(
+        css({
+          "position": "absolute",
+          "width": "100%",
+          "overflow": "scroll",
+          "::before": css({
+            "content": "''",
+            "display": "block",
+            "top": "0",
+            "left": "10%",
+            "width": "80%",
+            "height": "15vh",
+            "position": "fixed",
+            "background": Colors.bgColorDark,
+          }),
+          "::after": css({
+            "content": "''",
+            "display": "block",
+            "bottom": "0",
+            "left": "10%",
+            "width": "80%",
+            "height": "15vh",
+            "position": "fixed",
+            "background": Colors.bgColorDark,
+          }),
+        }),
+      ),
+    ])
 
-    let pageInnerWrapper = css({
-      "width": "70vw",
-      "margin": "auto",
-      "padding": "15vh 0",
-    })
+    let pageInnerWrapper = cx([
+      css({
+        "padding": "60px 30px",
+        "width": "100%",
+      }),
+      Media.medium(
+        css({
+          "width": "70vw",
+          "margin": "auto",
+          "padding": "15vh 0",
+        }),
+      ),
+    ])
 
-    let backLink = css({
-      "zIndex": "1",
-      "position": "fixed",
-      "bottom": "50px",
-      "right": "340px",
-    })
+    let backLink = cx([
+      css({
+        "position": "fixed",
+        "bottom": "20px",
+        "right": "20px",
+      }),
+      Media.medium(
+        css({
+          "zIndex": "1",
+          "position": "fixed",
+          "bottom": "50px",
+          "right": "340px",
+        }),
+      ),
+    ])
   }
 
   @react.component

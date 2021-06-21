@@ -300,9 +300,14 @@ module Styles = {
     "fontFamily": Fonts.heading,
   })
 
-  let buttons = css({
-    "display": "flex",
-  })
+  let buttons = cx([
+    css({"display": "none"}),
+    Media.medium(
+      css({
+        "display": "flex",
+      }),
+    ),
+  ])
 
   let socials = cx([
     css({

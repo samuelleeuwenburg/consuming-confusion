@@ -3,26 +3,43 @@ module Styles = {
   open Style
   open Style.Spacing
 
-  let wrapper = css({
-    "position": "relative",
-    "maxWidth": "70%",
-    "margin": "auto",
-    "textAlign": "center",
-  })
+  let wrapper = Media.medium(
+    css({
+      "position": "relative",
+      "maxWidth": "70%",
+      "margin": "auto",
+      "textAlign": "center",
+    }),
+  )
 
-  let svg = css({
-    "width": "80%",
-    "maxWidth": "600px",
-    "transform": "rotate(-90deg)",
-  })
+  let svg = cx([
+    css({
+      "width": "100%",
+      "transform": "rotate(-90deg)",
+    }),
+    Media.medium(
+      css({
+        "width": "80%",
+        "maxWidth": "600px",
+      }),
+    ),
+  ])
 
-  let legends = css({
-    "position": "absolute",
-    "bottom": "0",
-    "left": "92%",
-    "textAlign": "left",
-    "width": "320px",
-  })
+  let legends = cx([
+    css({
+      "textAlign": "left",
+      "margin": `${px(small)} 0`,
+    }),
+    Media.medium(
+      css({
+        "margin": "0",
+        "position": "absolute",
+        "bottom": "0",
+        "left": "92%",
+        "width": "320px",
+      }),
+    ),
+  ])
 
   let legend = color =>
     css({

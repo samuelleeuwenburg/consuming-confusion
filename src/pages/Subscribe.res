@@ -3,20 +3,26 @@ open Emotion
 open Style
 open Style.Spacing
 
-let wrapper = css({
-  "display": "flex",
-  "alignItems": "start",
-})
+let wrapper = Media.medium(
+  css({
+    "display": "flex",
+    "alignItems": "start",
+  }),
+)
 
-let text = css({
-  "width": "50%",
-  "paddingRight": px(medium),
-})
+let text = Media.medium(
+  css({
+    "width": "50%",
+    "paddingRight": px(medium),
+  }),
+)
 
-let images = css({
-  "width": "50%",
-  "textAlign": "center",
-})
+let images = Media.medium(
+  css({
+    "width": "50%",
+    "textAlign": "center",
+  }),
+)
 
 let fullImage = css({
   "width": "100%",

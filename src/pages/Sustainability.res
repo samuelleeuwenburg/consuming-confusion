@@ -2,16 +2,32 @@ open Common
 
 module Styles = {
   open Emotion
+  open Style
 
-  let image = css({
-    "width": "25%",
-  })
+  let image = cx([
+    css({
+      "width": "50%",
+    }),
+    Media.medium(
+      css({
+        "width": "25%",
+      }),
+    ),
+  ])
 
-  let gap = css({
-    "display": "inline-block",
-    "width": "25%",
-    "paddingTop": "25%",
-  })
+  let gap = cx([
+    css({
+      "display": "inline-block",
+      "width": "50%",
+      "paddingTop": "50%",
+    }),
+    Media.medium(
+      css({
+        "width": "25%",
+        "paddingTop": "25%",
+      }),
+    ),
+  ])
 }
 
 let totalImages = 32
